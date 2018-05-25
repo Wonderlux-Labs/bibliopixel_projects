@@ -1,0 +1,35 @@
+---
+driver:
+  typename: simpixel
+aliases:
+  bpa: BiblioPixelAnimations.strip
+shape:
+- 150
+run:
+  fps: 30
+controls:
+  typename: midi
+  verbose: false
+  extractor:
+    normalizers: ""
+    accept:
+      type: control_change
+      channel: 8
+    omit:
+    - port
+    - channel
+    - velocity
+  routing:
+    '77': animation._color_control
+    '78': animation._level_control
+    '79': animation._count_control
+    '80': animation._width_control
+    '81': animation._delay_control
+    '13': animation._red_control
+    '29': animation._green_control
+    '49': animation._blue_control
+animation:
+  typename: firefly_midi.FireFliesMidi
+  max_count: 25
+  max_width: 20
+  use_rgb: True

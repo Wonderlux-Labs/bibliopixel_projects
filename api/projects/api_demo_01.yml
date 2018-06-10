@@ -1,0 +1,37 @@
+---
+driver:
+  num: 150
+  typename: serial
+  ledtype: WS2812
+aliases:
+  bpa: BiblioPixelAnimations.strip
+layout: strip
+controls:
+  typename: api
+  verbose: true
+  routing:
+    flicker: animation.index = FireFlies
+    rainbow: animation.index = HalvesRainbow
+    party: animation.index = PartyMode
+run:
+  fps: 30
+animation:
+  typename: sequence
+  length: 600
+  animations:
+  - "@bpa.ColorChase"
+  - "@bpa.ColorFade"
+  - "@bpa.ColorPattern"
+  - "@bpa.ColorWipe"
+  - "@bpa.FireFlies"
+  - "@bpa.HalvesRainbow"
+  - "@bpa.LarsonScanners.LarsonRainbow"
+  - "@bpa.LarsonScanners.LarsonScanner"
+  - "@bpa.LinearRainbow"
+  - "@bpa.PartyMode"
+  - "@bpa.PixelPingPong"
+  - "@bpa.Rainbows.Rainbow"
+  - "@bpa.Rainbows.RainbowCycle"
+  - "@bpa.Searchlights"
+  - "@bpa.Wave"
+  - "@bpa.WhiteTwinkle"

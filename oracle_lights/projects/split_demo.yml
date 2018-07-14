@@ -1,0 +1,33 @@
+---
+driver:
+  num: 144
+  typename: serial
+  ledtype: WS2812
+  c_order: BRG
+layout: strip
+aliases:
+  bpa: BiblioPixelAnimations.strip
+run:
+  fps: 30
+animation:
+  typename: "mixer"
+  levels: [1, 0]
+  animations:
+  - typename: split
+    size: 24
+    animations:
+    - '@bpa.Rainbows.RainbowCycle'
+    - '@bpa.Rainbows.RainbowCycle'
+    - '@bpa.Rainbows.RainbowCycle'
+    - '@bpa.Rainbows.RainbowCycle'
+    - '@bpa.Rainbows.RainbowCycle'
+    - '@bpa.Rainbows.RainbowCycle'
+  - typename: split
+    size: 24
+    animations:
+    - '@bpa.FireFlies'
+    - '@bpa.FireFlies'
+    - '@bpa.FireFlies'
+    - '@bpa.FireFlies'
+    - '@bpa.FireFlies'
+    - '@bpa.FireFlies'

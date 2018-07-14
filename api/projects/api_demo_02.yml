@@ -2,18 +2,15 @@
 driver:
   typename: serial
   ledtype: WS2812
-  num: 150
+  num: 100
+layout: strip
 run:
-  fps: 30
+  fps: 10
 controls:
-  typename: api
+  typename: rest
   verbose: true
-  routing:
-    slow: "animation._slow = true"
-    noslow: "animation._slow = false"
-    color: animation._color_control
-    brightness: animation._brightness_control
-    width: animation._width
-    count: animation._count
 animation:
-  typename: fireflies_remote.FireFliesRemote
+  typename: sequence
+  length: 600
+  animations:
+  - fireflies_remote.FireFliesRemote

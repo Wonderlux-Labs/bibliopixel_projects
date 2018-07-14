@@ -1,18 +1,14 @@
 ---
 driver:
-  num: 150
+  num: 30
   typename: serial
   ledtype: WS2812
 aliases:
   bpa: BiblioPixelAnimations.strip
 layout: strip
 controls:
-  typename: api
+  typename: rest
   verbose: true
-  routing:
-    flicker: animation.index = FireFlies
-    rainbow: animation.index = HalvesRainbow
-    party: animation.index = PartyMode
 run:
   fps: 30
 animation:

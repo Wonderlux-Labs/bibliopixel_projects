@@ -1,0 +1,20 @@
+---
+driver:
+  num: 150
+  typename: serial
+  ledtype: APA102
+numbers: float
+layout: strip
+controls: rest
+aliases:
+  bpa: BiblioPixelAnimations.strip
+run:
+  fps: 30
+animation:
+  typename: sequence
+  length: 100000
+  animations:
+  - typename: '@bpa.Rainbows.RainbowCycle'
+  - typename: '@bpa.LarsonScanners.LarsonRainbow'
+  - typename: '@bpa.Rainbows.RainbowCycle'
+  - typename: '@bpa.FireFlies'

@@ -18,32 +18,41 @@ class ColorMidiUtils:
         return(red, green, blue)
 
     def one_cc_to_color(one_cc):
-        c_num = MidiTransform.remap_cc_value(one_cc, 0, 255)
-        c = bp_colors.conversions.HUE_RAINBOW[int(c_num)]
-        return c
+        hue_num = MidiTransform.remap_cc_value(one_cc, 0, 255)
+        color = bp_colors.conversions.HUE_RAINBOW[int(hue_num)]
+        return color
 
 class BaseRemoteStrip(BaseStripAnim):
-    def __init__(self, layout, start=0, end=-1, **args):
-        super(BaseRemoteStrip, self).__init__(layout, start, end, **args)
-        self.color_control = args.get('color_control') or 0
-        self.brightness_control = args.get('brightness_control') or 100
-        self.randomness_control = args.get('randomness_control') or 0
-        self.width_control = args.get('width_control') or 0
-        self.count_control = args.get('count_control') or 0
-        self.delay_control = args.get('delay_control') or 0
-        self.utility_control_one = args.get('utility_control_one') or 0
-        self.utility_control_two = args.get('utility_control_two') or 0
-        self.use_rgb = args.get('use_rgb') or False
-        self.red_control = args.get('red_control') or 50
-        self.green_control = args.get('green_control') or  50
-        self.blue_control = args.get('blue_control') or 50
+    def __init__(self, layout, start=0, end=-1, color_control=0, brightness_control=100,
+                 width_control=0, count_control=0, randomness_control=0, delay_control=0,
+                 utility_control_one=0, utility_control_two=0, red_control=127,
+                 green_control=127, blue_control=127, use_rgb = False):
+        super(BaseRemoteStrip, self).__init__(layout, start, end)
+        self.color_control = color_control
+        self.brightness_control = brightness_control
+        self.randomness_control = randomness_control
+        self.width_control = width_control
+        self.count_control = count_control
+        self.delay_control = delay_control
+        self.utility_control_one = utility_control_one
+        self.utility_control_two = utility_control_two
+        self.use_rgb = use_rgb
+        self.red_control = red_control
+        self.green_control = green_control
+        self.blue_control = blue_control
         self._color = (255, 255, 255)
 
     def get_color(self):
         if self.use_rgb:
-            c = ColorMidiUtils.three_cc_to_color(self.red_control, self.green_control, self.blue_control)
+            color = ColorMidiUtils.three_cc_to_color(self.red_control,
+                                                     self.green_control,
+                                                     self.blue_control)
         else:
-            c = ColorMidiUtils.one_cc_to_color(self.color_control)
+            color = ColorMidiUtils.one_cc_to_color(self.color_control)
+            # allow animation to be set at white at the top of a controller
+            if self.color_control == 127:
+                color = bp_colors.White
 
-        c_lev = MidiTransform.remap_cc_value(self.brightness_control, 0, 256)
-        self._color = bp_colors.color_scale(c, c_lev)
+
+        brightness_level = MidiTransform.remap_cc_value(self.brightness_control, 0, 256)
+        self._color = bp_colors.color_scale(color, brightness_level)

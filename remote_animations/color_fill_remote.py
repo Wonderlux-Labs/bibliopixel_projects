@@ -20,7 +20,6 @@ class ColorFillRemote(BaseRemoteStrip):
         super(ColorFillRemote, self).__init__(layout, **args)
 
     def step(self, amt=1):
-
         self.get_color()
         self.layout.fill(self._color)
         delay_time = MidiTransform.remap_cc_value(self.delay_control, 0, 1)

@@ -20,9 +20,9 @@ class ColorFadeRemote(BaseRemoteStrip):
         return main + [i for i in reversed(main[0:len(main) - 1])]
 
     def __init__(self, layout, start=0, end=-1, **args):
-        super(ColorFadeRemote, self).__init__(layout, start, end)
+        super(ColorFadeRemote, self).__init__(layout, start, end, **args)
         self._colors = [bp_colors.Red]
-        self._levels = self.wave_range(30, 255, 5)
+        self._levels = self.wave_range(200, 255, 25)
         self._level_count = len(self._levels)
         self._color_count = len(self._colors)
 
@@ -30,13 +30,14 @@ class ColorFadeRemote(BaseRemoteStrip):
         self._step = 0
 
     def step(self, amt=1):
-        num_colors = int(MidiTransform.remap_cc_value(self.count_control, 1, 10))
+        num_colors = int(MidiTransform.remap_cc_value(self.color_control, 1, 10))
         hue = int(MidiTransform.remap_cc_value(self.color_control, 1, 255))
+
         levels_count = int(MidiTransform.remap_cc_value(self.width_control, 5, 25))
         self._levels = self.wave_range(30, 255, levels_count)
 
         if num_colors > 1:
-            hues = bp_colors.hue_gradient(hue, 255, num_colors)
+            hues = bp_colors.hue_gradient(0, hue, num_colors)
         else:
             hues = [hue]
 
@@ -50,11 +51,12 @@ class ColorFadeRemote(BaseRemoteStrip):
 
         c_index = (self._step // self._level_count) % self._color_count
         l_index = (self._step % self._level_count)
-        print(c_index)
+
         color = self._colors[c_index]
 
         self.layout.fill(bp_colors.color_scale(color, self._levels[l_index]), self._start, self._end)
 
         self._step += amt
+
         delay_time = MidiTransform.remap_cc_value(self.delay_control, 0, 1)
         time.sleep(delay_time)

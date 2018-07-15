@@ -12,12 +12,10 @@ from base_remote_strip import NumberUtils
 from base_remote_strip import ColorMidiUtils
 from bibliopixel import colors as bp_colors
 
-# Base class to be used by any display type
-
 class TwinkleRemote(BaseRemoteStrip):
-    def __init__(self, layout,
-                 density=50, speed=10, max_bright=255, start=0, end=-1):
-        super(TwinkleRemote, self).__init__(layout, start, end)
+    def __init__(self, layout, density=40, speed=7, max_bright=230,
+                 start=0, end=-1, **args):
+        super(TwinkleRemote, self).__init__(layout, start, end, **args)
         self.colors = [(255,240,255), (245, 230, 233), (250,230,230)]
         self.density = density
         self.speed = speed
@@ -46,15 +44,18 @@ class TwinkleRemote(BaseRemoteStrip):
     def pick_led(self, speed):
         idx = random.randrange(0, self.layout.numLEDs)
         p_dir, p_color, p_level = self.pixels[idx]
-        self.colors = list(map(lambda color: self.change_color(color), self.colors))
-        print(self.colors)
+        print(self.color_control)
+        if self.color_control == 127:
+            self.colors = [(255,240,255), (245, 230, 233), (250,230,230)]
+        else:
+            print(self.colors)
+            self.colors = list(map(lambda color: self.change_color(color), self.colors))
         if random.randrange(0, 100) < self.density:
             if p_dir == 0:  # 0 is off
                 p_level += speed
                 p_dir = 1  # 1 is growing
                 p_color = random.choice(self.colors)
                 self.layout._set_base(idx, bp_colors.color_scale(p_color, p_level))
-
                 self.pixels[idx] = p_dir, p_color, p_level
 
     def step(self, amt=1):
@@ -79,3 +80,5 @@ class TwinkleRemote(BaseRemoteStrip):
             self.pixels[i] = (p_dir, p_color, p_level)
 
         self._step += amt
+        delay_time = MidiTransform.remap_cc_value(self.delay_control, 0, 1)
+        time.sleep(delay_time)

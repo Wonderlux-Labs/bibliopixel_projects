@@ -13,14 +13,11 @@ from base_remote_strip import ColorMidiUtils
 from bibliopixel import colors as bp_colors
 
 class SearchlightsRemote(BaseRemoteStrip):
-    def __init__(self, layout, colors=[bp_colors.MediumSeaGreen, bp_colors.MediumPurple, bp_colors.MediumVioletRed], tail=2, start=0, end=-1):
+    def __init__(self, layout, colors=[], tail=2, start=0, end=-1, **args):
 
-        super(SearchlightsRemote, self).__init__(layout, start, end)
-
+        super(SearchlightsRemote, self).__init__(layout, start, end, **args)
         self._colors = colors
-        self._tail = tail + 1
-        if self._tail >= self._size // 2:
-            self._tail = (self._size // 2) - 1
+        self._tail = tail
 
     def pre_run(self):
         self._direction = [1, 1, 1]
@@ -29,11 +26,12 @@ class SearchlightsRemote(BaseRemoteStrip):
         self._fadeAmt = 256 / self._tail
 
     def step(self, amt=1):
-        self._tail = int(MidiTransform.remap_cc_value(self.count_control, 1, 50))
-        self.get_color()
-        hue = int( 255 * bp_colors.conversions.rgb_to_hsv(self._color)[0])
-        hues = bp_colors.hue_gradient(hue, 255-hue, 3)
+        self._tail = int(MidiTransform.remap_cc_value(self.count_control, 2, self._size))
+        hue = int(MidiTransform.remap_cc_value(self.color_control, 1, 255))
+        hues = bp_colors.hue_gradient(0, hue, 3)
+
         self._colors = list(map(lambda x: bp_colors.hue2rgb(x), hues))
+
         self._ledcolors = [(0, 0, 0) for i in range(self._size)]
         self.layout.all_off()
 

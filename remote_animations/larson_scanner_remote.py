@@ -15,11 +15,11 @@ from bibliopixel import colors as bp_colors
 class LarsonScannerRemote(BaseRemoteStrip):
     """Larson scanner (i.e. Cylon Eye or K.I.T.T.)."""
 
-    def __init__(self, layout, start=0, end=-1, **args):
+    def __init__(self, layout, start=0, end=-1, min_tail=2, max_tail=50, **args):
         super(LarsonScannerRemote, self).__init__(layout, start, end, **args)
-        self._min_tail = args.get('min_tail') or 2
-        self._max_tail = args.get('max_tail') or 50
-        self._max_randomness = args.get('max_randomness') or 100
+        self._min_tail = min_tail
+        self._max_tail = max_tail
+        self._max_randomness = 100
         self._color = (255,255,255)
         self._random_color = (255,255,255)
 
@@ -31,7 +31,6 @@ class LarsonScannerRemote(BaseRemoteStrip):
         self._random_seed = 0
 
     def get_color(self):
-        print('here')
         if self.use_rgb:
             self._color = ColorMidiUtils.three_cc_to_color(self.red_control, self.green_control, self.blue_control)
 
@@ -54,10 +53,8 @@ class LarsonScannerRemote(BaseRemoteStrip):
 
         scaled_fade = int(MidiTransform.remap_cc_value(self.utility_control_two, 1, 500))
         self._fadeAmt = scaled_fade // self._tail
-        print('calling color')
+
         self.get_color()
-        print('color is')
-        print(self._color)
 
         self._last = self._start + self._step
         self.layout.set(self._last, self._color)
@@ -75,13 +72,14 @@ class LarsonScannerRemote(BaseRemoteStrip):
 
         delay_time = MidiTransform.remap_cc_value(self.delay_control, 0, 1)
         time.sleep(delay_time)
+
         self._random_counter = (self._random_counter + 1) % 30
 
 class LarsonRainbowRemote(LarsonScannerRemote):
     """Larson scanner (i.e. Cylon Eye or K.I.T.T.) but Rainbow."""
 
-    def __init__(self, layout, start=0, end=-1):
-        super(LarsonRainbowRemote, self).__init__(layout, start, end)
+    def __init__(self, layout, start=0, end=-1, **args):
+        super(LarsonRainbowRemote, self).__init__(layout, start, end, **args)
         self._color_number = 0
 
     def get_color(self):

@@ -15,9 +15,9 @@ from bibliopixel import colors as bp_colors
 class ColorPatternRemote(BaseRemoteStrip):
     """Fill the dots progressively along the strip with alternating colors."""
 
-    def __init__(self, layout, colors=[bp_colors.Red, bp_colors.Green, bp_colors.Blue],
-                 width=1, dir=True):
-        super(ColorPatternRemote, self).__init__(layout)
+    def __init__(self, layout, colors=[],
+                 width=1, dir=True, **args):
+        super(ColorPatternRemote, self).__init__(layout, **args)
         self._colors = colors
         self._color_count = len(colors)
         self._width = width
@@ -33,7 +33,7 @@ class ColorPatternRemote(BaseRemoteStrip):
         self._width = int(MidiTransform.remap_cc_value(self.width_control, 1, 100))
 
         if num_colors > 1:
-            hues = bp_colors.hue_gradient(hue, 255, num_colors)
+            hues = bp_colors.hue_gradient(0, hue, num_colors)
         else:
             hues = [hue]
 
@@ -44,7 +44,9 @@ class ColorPatternRemote(BaseRemoteStrip):
         for i in range(self._size):
             cIndex = ((i + self._step) % self._total_width) // self._width
             self.layout.set(i, self._colors[cIndex])
+
         self._step += amt * (1 if self._dir else -1)
+
         if self._dir and self._step >= self.layout.numLEDs:
             self._step = 0
         elif not self._dir and self._step < 0:

@@ -1,0 +1,42 @@
+---
+driver:
+  typename: serial
+  ledtype: WS2811
+shape: 81
+aliases:
+  bpa: BiblioPixelAnimations.strip
+path: ./remote_animations/
+run:
+  fps: 30
+animation:
+  typename: sequence
+  animations:
+  - typename: halves_rainbow_remote.HalvesRainbowRemote
+    brightness_control: 50
+  - typename: twinkle_remote.TwinkleRemote
+    color_control: 100
+  - typename: searchlights_remote.SearchlightsRemote
+    color_control: 120
+    count_control: 0
+  - typename: rainbow_remote.RainbowRemote
+    count_control: 10
+  - typename: larson_scanner_remote.LarsonRainbowRemote
+    utility_control_one: 60
+  - typename: fireflies_remote.FireFliesRemote
+    color_control: 127
+    brightness_control: 50
+    count_control: 100
+    delay_control: 25
+  - typename: color_pattern_remote.ColorPatternRemote
+    color_control: 30
+    brightness_control: 100
+    width_control: 10
+    count_control: 100
+  - typename: color_fill_remote.ColorFillRemote
+    color_control: 50
+    delay_control: 50
+    brightness_control: 20
+  - typename: color_fade_remote.ColorFadeRemote
+    color_control: 125
+    count_control: 5
+    width_control: 100

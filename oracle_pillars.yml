@@ -2,7 +2,7 @@
 driver:
   typename: serial
   ledtype: WS2811
-  num: 54
+  num: 108
 
 layout: strip
 
@@ -20,11 +20,15 @@ animation:
   typename: sequence
   length: 10000
   animations:
-  - typename: twinkle_remote.TwinkleRemote
+  - typename: fireflies_remote.FireFliesRemote
   - typename: split
     size: 27
     animations:
-    - typename: $bpa.LarsonScanners.LarsonRainbow
-      end: 27
-    - typename: $bpa.LarsonScanners.LarsonRainbow
-      end: 27
+    - typename: fireflies_remote.FireFliesRemote
+      color_control: 100
+    - typename: color_pattern_remote.ColorPatternRemote
+      color_control: 10
+    - typename: color_pattern_remote.ColorPatternRemote
+      color_control: 50
+    - typename: color_fade_remote.ColorFadeRemote
+      color_control: 30

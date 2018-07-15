@@ -15,8 +15,9 @@ from bibliopixel import colors as bp_colors
 class FireFliesRemote(BaseRemoteStrip):
     def __init__(self, layout, start=0, end=-1, **args):
         super(FireFliesRemote, self).__init__(layout, start, end, **args)
-        self.max_count = self.layout.numLEDs
-        self.max_width = self.layout.numLEDs
+        self.max_count = self.layout.numLEDs / 2
+        self.max_width = self.layout.numLEDs / 2
+        self.colors = []
 
     def pre_run(self):
         self._step = 0

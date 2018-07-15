@@ -25,10 +25,10 @@ class RainbowRemote(BaseRemoteStrip):
         for i in range(self._size):
             chunk_size = MidiTransform.remap_cc_value(self.count_control, 1, 20)
             chunks = self._size / chunk_size
-            c = bp_colors.hue_helper(i + self.color_control, chunks, self._step)
-            c_lev = MidiTransform.remap_cc_value(self.brightness_control, 0, 256)
-            c = bp_colors.color_scale(c, c_lev)
-            self.layout.set(self._start + i, c)
+            color = bp_colors.hue_helper(i, chunks, self._step)
+            brightness_level = MidiTransform.remap_cc_value(self.brightness_control, 0, 256)
+            color = bp_colors.color_scale(color, brightness_level)
+            self.layout.set(self._start + i, color)
 
         self._step += amt
         overflow = self._step - 256

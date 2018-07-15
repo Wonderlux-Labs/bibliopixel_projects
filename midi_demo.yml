@@ -1,0 +1,45 @@
+---
+driver:
+  typename: serial
+  ledtype: WS2811
+
+aliases:
+  bpa: BiblioPixelAnimations.strip
+
+shape: 27
+
+run:
+  fps: 30
+
+controls:
+  typename: midi
+  verbose: true
+  extractor:
+    normalizers: ""
+    accept:
+      type: control_change
+    omit:
+    - port
+    - channel
+    - velocity
+  routing:
+    '0': animation.color_control
+    '1': animation.brightness_control
+    '2': animation.count_control
+    '3': animation.width_control
+    '4': animation.randomness_control
+    '5': animation.utility_control_one
+    '6': animation.utility_control_two
+    '7': animation.delay_control
+    '16': animation.red_control
+    '17': animation.blue_control
+    '18': animation.green_control
+
+animation:
+  # typename: larson_scanner_remote.LarsonScannerRemote
+  typename: twinkle_remote.TwinkleRemote
+  # typename: saberblades_remote.SaberBladeRemote
+
+  # length: 600
+  # animations:
+  # - typename: fireflies_remote.FireFliesRemote

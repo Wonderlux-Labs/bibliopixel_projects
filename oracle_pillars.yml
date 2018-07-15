@@ -1,0 +1,30 @@
+---
+driver:
+  typename: serial
+  ledtype: WS2811
+  num: 54
+
+layout: strip
+
+path: /home/estiens/projects/bibliopixel_projects/remote_animations
+
+aliases:
+  bpa: BiblioPixelAnimations.strip
+
+run:
+  fps: 30
+
+controls: rest
+
+animation:
+  typename: sequence
+  length: 10000
+  animations:
+  - typename: twinkle_remote.TwinkleRemote
+  - typename: split
+    size: 27
+    animations:
+    - typename: $bpa.LarsonScanners.LarsonRainbow
+      end: 27
+    - typename: $bpa.LarsonScanners.LarsonRainbow
+      end: 27

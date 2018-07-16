@@ -44,11 +44,9 @@ class TwinkleRemote(BaseRemoteStrip):
     def pick_led(self, speed):
         idx = random.randrange(0, self.layout.numLEDs)
         p_dir, p_color, p_level = self.pixels[idx]
-        print(self.color_control)
         if self.color_control == 127:
             self.colors = [(255,240,255), (245, 230, 233), (250,230,230)]
         else:
-            print(self.colors)
             self.colors = list(map(lambda color: self.change_color(color), self.colors))
         if random.randrange(0, 100) < self.density:
             if p_dir == 0:  # 0 is off

@@ -34,12 +34,16 @@ controls:
     '16': animation.red_control
     '17': animation.blue_control
     '18': animation.green_control
-
 animation:
-  typename: larson_scanner_remote.LarsonScannerRemote
-  # typename: twinkle_remote.TwinkleRemote
-  # typename: saberblades_remote.SaberBladeRemote
-
-  # length: 600
-  # animations:
-  # - typename: fireflies_remote.FireFliesRemote
+  typename: sequence
+  length: 345600
+  animations:
+  - typename: rainbow_remote.RainbowRemote
+  - typename: halves_rainbow_remote.HalvesRainbowRemote
+  - typename: twinkle_remote.TwinkleRemote
+  - typename: searchlights_remote.SearchlightsRemote
+  - typename: larson_scanner_remote.LarsonRainbowRemote
+  - typename: fireflies_remote.FireFliesRemote
+  - typename: color_pattern_remote.ColorPatternRemote
+  - typename: color_fill_remote.ColorFillRemote
+  - typename: color_fade_remote.ColorFadeRemote

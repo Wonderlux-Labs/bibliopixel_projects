@@ -1,0 +1,17 @@
+---
+driver:
+  typename: serial
+  ledtype: APA102
+  device_id: 12
+shape: 300
+aliases:
+  bpa: BiblioPixelAnimations.strip
+path: ./remote_animations/
+run:
+  fps: 30
+animation:
+  typename: sequence
+  length: 1000
+  animations:
+  - typename: rainbow_remote.RainbowRemote
+  - typename: halves_rainbow_remote.HalvesRainbowRemote

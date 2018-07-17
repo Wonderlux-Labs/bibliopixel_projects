@@ -28,17 +28,17 @@ controls:
     - channel
     - velocity
   routing:
-    '0': animation.color_control
-    '1': animation.brightness_control
-    '2': animation.count_control
-    '3': animation.width_control
-    '4': animation.randomness_control
-    '5': animation.utility_control_one
-    '6': animation.utility_control_two
-    '7': animation.delay_control
-    '16': animation.red_control
-    '17': animation.blue_control
-    '18': animation.green_control
+    '0': animation.animation.color_control
+    '1': animation.animation.brightness_control
+    '2': animation.animation.count_control
+    '3': animation.animation.width_control
+    '4': animation.animation.randomness_control
+    '5': animation.animation.utility_control_one
+    '6': animation.animation.utility_control_two
+    '7': animation.animation.delay_control
+    '16': animation.animation.red_control
+    '17': animation.animation.blue_control
+    '18': animation.animation.green_control
 animation:
   typename: sequence
   length: 345600

@@ -39,6 +39,14 @@ controls:
     '16': animation.animation.red_control
     '17': animation.animation.blue_control
     '18': animation.animation.green_control
+    '32.127': 'animation.index = RainbowRemote'
+    '33.127': 'animation.index = HalvesRainbowRemote'
+    '34.127': 'animation.index = TwinkleRemote'
+    '35.127': 'animation.index = SearchlightsRemote'
+    '36.127': 'animation.index = LarsonRainbowRemote'
+    '37.127': 'animation.index = FireFliesRemote'
+    '38.127': 'animation.index = ColorPatternRemote'
+    '39.127': 'animation.index = ColorFadeRemote'
 animation:
   typename: sequence
   length: 345600

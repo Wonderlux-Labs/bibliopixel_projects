@@ -3,10 +3,15 @@ driver:
   typename: serial
   ledtype: WS2811
 
+shape: 300
+
 aliases:
   bpa: BiblioPixelAnimations.strip
 
-shape: 300
+path: ./remote_animations/
+
+aliases:
+  bpa: BiblioPixelAnimations.strip
 
 run:
   fps: 30
